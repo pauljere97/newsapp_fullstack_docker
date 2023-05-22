@@ -6,11 +6,14 @@ STEP 3: cd frontend
 STEP 4: npm install
 STEP 5: cd .. && cd backend
 STEP 6: composer install
-step 7: cd ..
-STEP 8: Turn on the Docker daemon and ensure that it is running
-STEP 9: docker-composer up
-STEP 10: create and copy the .env variables in the backend directory, the variables are shown below, line 19 to 88
+STEP 7: create and copy the .env variables in the backend directory, the variables are shown below, line 19 to 88
+step 8: cd ..
+STEP 9: docker exec -it newsapp_fullstack_docker-backend-1 sh  
+STEP 9: php artisan migrate  
+STEP 9: Turn on the Docker daemon and ensure that it is running
+STEP 10: docker-composer up
 
+docker exec -it newsapp_fullstack_docker-frontend-1 /bin/bash
 
 <!-- 
 
