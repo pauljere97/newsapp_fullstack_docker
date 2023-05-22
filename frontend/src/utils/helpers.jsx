@@ -1,5 +1,12 @@
 export const createPayload = (state, page = null) => {
     let result = ''
+    if(!state.query_string) {
+        if(state.category){
+            result = `?q=${state.category}`
+        }else{
+            result = `?q=trending`
+        }
+    }
     if(state.query_string){
         result = `?q=${state.query_string}`
     }
@@ -23,9 +30,13 @@ export const createPayload = (state, page = null) => {
         if(result) result += `&author=${state.author}`
         else result += `?author=${state.author}`
     }
+    if(!result) result = `?q=trending`
     if(state.page || page){
-        if(result) result += `&page=${page ? page : state.page}`
-        else result += `?page=${+page ? page : state.page}`
+        let num = 1
+        if(typeof state.page == "number") num = state.page
+        if(typeof page == "number") num = page
+        if(result) result += `&page=${num}`
+        else result += `?page=${num}`
     }
     return result
 }

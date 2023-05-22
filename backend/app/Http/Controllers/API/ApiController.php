@@ -25,7 +25,6 @@ class ApiController extends Controller{
             if(isset($request['q']) && $request['q']) $filter['q'] = $request['q'];
             if(isset($request['source']) && $request['source']) $filter['fq'] = 'source:("'. $request['source'].'")';
             if(isset($request['category']) && $request['category']) $filter['fq'] = 'section_name:("'. $request['category'].'")';
-            if(isset($request['author']) && $request['author']) $filter['fq'] = 'byline:("'. $request['author'].'")';
             if(isset($request['date_to']) && $request['date_to']) $filter['end_date'] = str_replace('-', '', $request['date_to']);
             if(isset($request['date_from']) && $request['date_from'])  $filter['begin_date'] = str_replace('-', '', $request['date_from']);
             $response = Http::get(env('NEW_YORK_TIMES'), $filter);
@@ -65,7 +64,6 @@ class ApiController extends Controller{
             if(isset($request['date_from']) && $request['date_from']) $filter['from'] = $request['date_from'];
             if(isset($request['date_to']) && $request['date_to']) $filter['to'] = $request['date_to'];
             if(isset($request['category']) && $request['category']) $filter['category'] = $request['category'];
-            if(isset($request['author']) && $request['author']) $filter['domains'] = $request['author'];
           
             $response = Http::get(env('NEWS_API'), $filter);
             if($response->status() == 200){
@@ -161,10 +159,27 @@ class ApiController extends Controller{
             $guardianReqErrorMessage = $e->getMessage();
         }
 
+        $final_list = [];
+        $num = 0;
+        foreach ($feed as $value) {
+            $pass = true;
+
+            if($request['author'] && $value['author'] !== $request['author']){
+                $pass = false;
+            }
+            if($request['source'] && $value['source'] !== $request['source']){
+                $pass = false;
+            }
+
+            if($pass){
+                $final_list[$num] = $value;
+                $num++;
+            }
+        }
         return response()->json([
             'index'=>$index,
-            'total'=>sizeof($feed),
-            'feed'=>$feed,
+            'total'=>sizeof($final_list),
+            'feed'=>$final_list,
             'newsApiReqErrorMessage'=>$newsApiReqErrorMessage,
             'guardianReqErrorMessage'=>$guardianReqErrorMessage,
             'newyorkTimeReqErrorMessage'=>$newyorkTimeReqErrorMessage,

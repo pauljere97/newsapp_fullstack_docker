@@ -1,19 +1,19 @@
 # newsapp_fullstack_docker
+Turn on the Docker daemon and ensure that it is running
+
 RUN the following commands in the terminal
 STEP 1: git clone https://github.com/pauljere97/newsapp_fullstack_docker.git
 STEP 2: cd newsapp_fullstack_docker
-STEP 3: cd frontend
-STEP 4: npm install
-STEP 5: cd .. && cd backend
-STEP 6: composer install
-STEP 7: create and copy the .env variables in the backend directory, the variables are shown below, line 19 to 88
-step 8: cd ..
-STEP 9: docker exec -it newsapp_fullstack_docker-backend-1 sh  
-STEP 9: php artisan migrate  
-STEP 9: Turn on the Docker daemon and ensure that it is running
-STEP 10: docker-composer up
+STEP 3: cd frontend && npm install
+STEP 4: cd .. && cd backend && composer install
+STEP 5: create and copy the .env variables in the backend directory, the variables are shown below, line 20 to 89
+step 6: cd ..
+STEP 7: docker-composer up
+STEP 8: docker exec -it newsapp_fullstack_docker-backend-1 sh  
+STEP 9: php artisan migrate
+STEP 10: exit  
 
-docker exec -it newsapp_fullstack_docker-frontend-1 /bin/bash
+CLIENT: http://localhost:3000/
 
 <!-- 
 
