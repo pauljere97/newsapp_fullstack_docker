@@ -4,7 +4,7 @@ STEP 1: git clone https://github.com/pauljere97/newsapp_fullstack_docker.git
 STEP 2: cd newsapp_fullstack_docker
 STEP 3: cd frontend
 STEP 4: npm install
-STEP 5: cd.. && cd backend
+STEP 5: cd .. && cd backend
 STEP 6: composer install
 step 7: cd ..
 STEP 8: Turn on the Docker daemon and ensure that it is running
